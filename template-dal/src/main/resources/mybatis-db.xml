@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--引入jdbc.properties-->
+    <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true" order="10"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <!--最大连接数-->
+        <property name="maxActive" value="${jdbc.maxActive}"/>
+        <!--初始化连接数-->
+        <property name="initialSize" value="50"/>
+        <!--最小空闲连接数-->
+        <property name="minIdle" value="${jdbc.minIdle}"/>
+        <!--最大超时等待时间-->
+        <property name="maxWait" value="3000"/>
+        <!--空闲连接在连接池中的超时时间-->
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <!--检查连接的sql-->
+        <property name="validationQuery" value="SELECT 1"/>
+        <!--检查连接sql超时时间-->
+        <property name="validationQueryTimeout" value="5"/>
+        <!--回收废弃连接-->
+        <property name="removeAbandoned" value="true"/>
+        <!--打印废弃连接回收日志-->
+        <property name="logAbandoned" value="true"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean" >
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis/mapper/sql-conf.xml"/>
+        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"/>
+    </bean>
+
+
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+</beans>
