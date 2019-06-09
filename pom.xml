@@ -36,6 +36,7 @@
         <log4j.core.version>2.11.1</log4j.core.version>
         <log4j.version>1.2.17</log4j.version>
         <lombok.version>1.18.6</lombok.version>
+        <javax.servlet.version>3.1.0</javax.servlet.version>
         <!--通用工具类-->
         <guava.version>18.0</guava.version>
         <commons-lang3.version>3.4</commons-lang3.version>
@@ -119,6 +120,11 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-beans</artifactId>
                 <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>javax.servlet-api</artifactId>
+                <version>${javax.servlet.version}</version>
             </dependency>
             <!--mybatis-->
             <dependency>
