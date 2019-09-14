@@ -5,4 +5,6 @@
 
     <import resource="classpath*:common-context.xml"/>
 
+    <bean class="com.ssm.loadsources.CustomResourceLoader" id="customResourceLoader"/>
+
 </beans>

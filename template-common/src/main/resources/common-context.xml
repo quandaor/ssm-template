@@ -6,4 +6,11 @@
 
     <context:component-scan base-package="com.ssm"/>
 
+    <bean id="beanFactoryUtils" class="com.ssm.aware.BeanFactoryUtils"/>
+
+    <bean name="targetBean" id="targetBean" class="com.ssm.aware.TargetBean" init-method="init">
+        <constructor-arg name="name" value="this is target bean"/>
+        <constructor-arg name="code" value="1234567"/>
+    </bean>
+
 </beans>
