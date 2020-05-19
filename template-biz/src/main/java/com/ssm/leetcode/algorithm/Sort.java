@@ -1,5 +1,8 @@
 package com.ssm.leetcode.algorithm;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
 /**
  * @author quandaoran
  * @date 2019-11-06
@@ -77,27 +80,59 @@ public class Sort {
         return arr;
     }
 
-    public static void test(int a, int[] arr) {
-        for (int i = arr.length - 1; i >= 0; i--) {
-            System.out.println(arr[i]);
-            if (a < arr[i]) {
-                int temp = arr[i];
-
-            }
-        }
-
-    }
-
     public static void main(String[] args) {
         int[] arr = {8, 2, 1, 5, 7};
-        int[] arr2 = {3, 5, 1};
 
-        int[] ints = choiceSort(arr);
-
-        for (int i : ints) {
+        swap(arr, 1, 2);
+        for (int i : arr) {
             System.out.println(i);
         }
+    }
 
+    /**
+     * quickSort
+     *
+     * @param arr
+     */
+    public int[] quickSort(int[] arr) {
+        int[] array = Arrays.copyOf(arr, arr.length);
+
+        int left = array[0];
+        int right = array[array.length - 1];
+        partition(array, left, right);
+
+        return null;
+    }
+
+
+    public int[] partition(int[] arr, int left, int right) {
+//    基准数
+        int pivot = left;
+        int index = pivot + 1;
+        for (int i = index; i <= right; i++) {
+
+        }
+
+        return null;
+    }
+
+    /**
+     * 交换位置
+     *
+     * @param arr
+     * @param i
+     * @param j
+     */
+    public static void swap(int[] arr, int i, int j) {
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+
+    public static void test(int a, int[] arr) {
 
     }
+
+
 }
