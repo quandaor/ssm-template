@@ -1,10 +1,16 @@
 package com.ssm.utils;
 
 
+import cn.hutool.core.net.Ipv4Util;
+import cn.hutool.system.HostInfo;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -38,6 +44,29 @@ public class FileUtil {
                 bufferedWriter.newLine();
             }
             bufferedWriter.flush();
+        }
+    }
+
+    public static String getInternetIp() {
+        String INTRANET_IP = null;
+        try {
+            Enumeration<NetworkInterface> networks = NetworkInterface.getNetworkInterfaces();
+            InetAddress ip = null;
+            Enumeration<InetAddress> addrs;
+            while (networks.hasMoreElements()) {
+                addrs = networks.nextElement().getInetAddresses();
+                while (addrs.hasMoreElements()) {
+                    ip = addrs.nextElement();
+                    if (ip != null && ip instanceof Inet4Address && ip.isSiteLocalAddress() &&
+                            !ip.getHostAddress().equals(INTRANET_IP)) {
+                        return ip.getHostAddress();
+                    }
+                }
+            }
+            // 如果没有网卡IP，就返回/etc/hosts IP
+            return INTRANET_IP;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
